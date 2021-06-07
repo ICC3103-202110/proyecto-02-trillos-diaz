@@ -6,7 +6,7 @@ const Choices = require('inquirer/lib/objects/choices')
 function getTitle(){
     return chalk.blue(
         figlet.textSync(
-            'Unit Converter App',
+            'Weather App',
             {
                 horizontalLayout: 'full',
                 font: 'Nancyj-Underlined'
@@ -29,7 +29,7 @@ function getTable(model){
 function inputForm(model){
     //const option = 0
     const {choice} = model
-    const mes1 = 'Select action'
+    //const mes1 = 'Select action'
     const mes2 = 'Location'
     const Options = ['Add City', 'Update City', 'Delete City']
     return inquirer.prompt([
