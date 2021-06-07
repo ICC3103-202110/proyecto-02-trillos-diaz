@@ -54,7 +54,32 @@ function updateRight(inVal,FromUnit,ToUnit, model){
     }
 }
 
+function get_api(name,model){
+
+    const axios = require('axios')
+    let temperature
+    let min_temperature
+    let max_temperature
+    //let nombre = name
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=ecfe3b501db6d812e96982c7951eff63`)
+        .then((response)=>{
+            return{
+                ...model,
+                cityName:name, cityTemp:response.data.main.temp, maxTemp:response.data.main.temp_min, minTemp:response.data.main.temp_max
+        
+            }
+            // temperature = response.data.main.temp
+            // min_temperature = response.data.main.temp_min
+            // max_temperature = response.data.main.temp_max
+        })
+        .catch(err=>{
+            console.log(err.response.data.message)
+        })
+    
+}
+
 module.exports = {
     updateRight,
-    updateLeft
+    updateLeft,
+    get_api
 }

@@ -1,5 +1,5 @@
 const {inputForm, listForm, inputFormAdd, inputFormUpRemove} = require('./view')
-const {updateLeft,updateRight} = require('./update')
+const {get_api} = require('./update')
 const {printTable} = require('console-table-printer')
 var prompt = require('prompt-sync')();
 // Impure
@@ -15,6 +15,7 @@ async function app(state, update, view){
         //const input3 = await inputFormUpRemove(model)
         if(input["option"]=="Add City"){
             const input2 = await inputFormAdd(model)
+            updatedModel =  get_api(input2["newCity"],model)
             state = {
                 ...state,
                 model: updatedModel,
