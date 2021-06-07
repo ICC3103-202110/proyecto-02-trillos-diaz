@@ -27,10 +27,8 @@ function getTable(model){
 }
 
 function inputForm(model){
-    const option = 0
-    const {SecondVal} = model
-    const {source} = model
-    const {val} = model
+    //const option = 0
+    const {choice} = model
     const mes1 = 'Select action'
     const mes2 = 'Location'
     const Options = ['Add City', 'Update City', 'Delete City']
@@ -39,22 +37,42 @@ function inputForm(model){
             name: 'option',
             type: 'list',
             message: mes2,
-            default: option,
+            default: choice,
             choices: Options
-        },{
-            name: 'source',
-            type: 'input',
-            message: mes1,
-            default: source,
-            validate: function(value){
-            if (value == "Y"|| value == "N"){return true}
-            else{return "Please insert a source"}
-            }
         }
 
     ])
 }
+function inputFormAdd(model){
+    //const option = 0
+    const {newCity} = model
+    const mes2 = 'Location'
+    //const Options = ['Add City', 'Update City', 'Delete City']
+    return inquirer.prompt([
+        {
+            name: 'newCity',
+            type: 'input',
+            message: mes2,
+            default: newCity
+        }
 
+    ])
+}
+function inputFormUpRemove(model){
+    const {cityUpRem} = model
+    const mes2 = 'Location'
+    const Options2 = ['Add City', 'Update City', 'Delete City']
+    return inquirer.prompt([
+        {
+            name: 'cityUpRem',
+            type: 'list',
+            message: mes2,
+            default: cityUpRem,
+            choices: Options2
+        }
+
+    ])
+}
 
 
 // Get actual console view
@@ -67,5 +85,7 @@ function view(model){
 
 module.exports = {
     view, 
-    inputForm
+    inputForm,
+    inputFormAdd,
+    inputFormUpRemove
 }
