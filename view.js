@@ -4,7 +4,7 @@ const inquirer = require('inquirer')
 const Choices = require('inquirer/lib/objects/choices')
 
 function getTitle(){
-    return chalk.yellow(
+    return chalk.blue(
         figlet.textSync(
             'Unit Converter App',
             {
@@ -16,32 +16,32 @@ function getTitle(){
 }
 
 function getTable(model){
-    const {LeftVal} = model
-    const {LeftUn} = model
-    const {RightVal} = model
-    const {RightUn} = model
+    const {cityName} = model
+    const {cityTemp} = model
+    const {maxTemp} = model
+    const {minTemp} = model
     return [
-        {"Left Value": LeftVal,"Left Unit": LeftUn  ,"Right Value": RightVal,"Right Unit": RightUn},
+        {"Name": cityName,"Temp": cityTemp  ,"Max": maxTemp,"Min": minTemp},
         
     ]
 }
 
 function inputForm(model){
-    const {LeftVal} = model
-    const {RightVal} = model
-    const {LeftUn} = model
-    const {RightUn} = model
-    const {FirstVal} = model
+    const option = 0
     const {SecondVal} = model
     const {source} = model
     const {val} = model
-    const mes1 = 'Left temperature is source? (Y/N)'
-    const mes2 = 'Temperature value to convert:'
-    const mes3 = 'From?'
-    const mes4 = 'To?'
-    const Units = ['Celsius', 'Fahrenheit', 'Kelvin']
+    const mes1 = 'Select action'
+    const mes2 = 'Location'
+    const Options = ['Add City', 'Update City', 'Delete City']
     return inquirer.prompt([
         {
+            name: 'option',
+            type: 'list',
+            message: mes2,
+            default: option,
+            choices: Options
+        },{
             name: 'source',
             type: 'input',
             message: mes1,
@@ -50,24 +50,6 @@ function inputForm(model){
             if (value == "Y"|| value == "N"){return true}
             else{return "Please insert a source"}
             }
-        },{
-            name: 'val',
-            type: 'input',
-            message: mes2,
-            default: val,
-
-        },{
-            name: 'firstVal',
-            type: 'list',
-            message: mes3,
-            default: FirstVal,
-            choices: Units
-        },{
-            name: 'secondVal',
-            type: 'list',
-            message: mes4,
-            default: SecondVal,
-            choices: Units
         }
 
     ])
