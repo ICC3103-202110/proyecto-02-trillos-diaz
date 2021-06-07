@@ -1,5 +1,5 @@
 initModel = {
-    LeftVal: 0, LeftUn:"Celsius", RightVal:32, RightUn:"Farenheit"
+    cityName: "Santiago", cityTemp: 20, maxTemp:23, minTemp:17,
 }
 
 module.exports = {
