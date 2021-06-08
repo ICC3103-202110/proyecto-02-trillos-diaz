@@ -16,17 +16,16 @@ function getTitle(){
 }
 
 function getTable(model){
-    const printing_list = []
+    const tabList = []
     for (var i = 0; i < model.length; i++){
-        var Name = model[i].cityName
-        var Temp = model[i].cityTemp
-        var Min = model[i].minTemp
-        var Max = model[i].maxTemp
-        var m = {'name': Name, 'temp': Temp, "min": Min, "man": Max}
+        var singleList = {'name': model[i].cityName,
+        'temp': model[i].cityTemp,
+        "min": model[i].minTemp,
+        "man": model[i].maxTemp}
 
-        printing_list.push(m)
+        tabList.push(singleList)
     }
-   return printing_list
+   return tabList
 }
 
 function inputForm(model){
@@ -65,13 +64,17 @@ function inputFormUpRemove(model){
     const {cityUpRem} = model
     const mes2 = 'Location'
     const Options2 = model
+    const opts = []
+    for(var i = 0; i<Options2.length;i++){
+        opts.push(Options2[i].cityName)
+    }
     return inquirer.prompt([
         {
             name: 'cityUpRem',
             type: 'list',
             message: mes2,
             default: cityUpRem,
-            choices: Options2
+            choices: opts
         }
 
     ])
