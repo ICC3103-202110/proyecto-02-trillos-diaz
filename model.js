@@ -1,6 +1,4 @@
-initModel = {
-    cityName: "Santiago", cityTemp: 20, maxTemp:23, minTemp:17,
-}
+initModel = [{cityName: " ", cityTemp: " ", maxTemp:" ", minTemp:" ",},]
 
 module.exports = {
     initModel

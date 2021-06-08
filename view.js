@@ -16,14 +16,17 @@ function getTitle(){
 }
 
 function getTable(model){
-    const {cityName} = model
-    const {cityTemp} = model
-    const {maxTemp} = model
-    const {minTemp} = model
-    return [
-        {"Name": cityName,"Temp": cityTemp  ,"Max": maxTemp,"Min": minTemp},
-        
-    ]
+    const printing_list = []
+    for (var i = 0; i < model.length; i++){
+        var Name = model[i].cityName
+        var Temp = model[i].cityTemp
+        var Min = model[i].minTemp
+        var Max = model[i].maxTemp
+        var m = {'name': Name, 'temp': Temp, "min": Min, "man": Max}
+
+        printing_list.push(m)
+    }
+   return printing_list
 }
 
 function inputForm(model){
@@ -61,7 +64,7 @@ function inputFormAdd(model){
 function inputFormUpRemove(model){
     const {cityUpRem} = model
     const mes2 = 'Location'
-    const Options2 = ['Add City', 'Update City', 'Delete City']
+    const Options2 = model
     return inquirer.prompt([
         {
             name: 'cityUpRem',
