@@ -21,6 +21,9 @@ async function get_api(name){
     return 0
 }
 */
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 const get_api = async (name) =>{
     try{
@@ -30,7 +33,9 @@ const get_api = async (name) =>{
         console.log(resPost.data.main.temp)
         return [resPost.data.main.temp, resPost.data.main.temp_min, resPost.data.main.temp_max]
     } catch (error){
-        console.log(error)
+        console.log("\n"+error.response.data.message)
+        await sleep(2000);
+        return [0,0,0]
     }
 }
 
@@ -47,6 +52,7 @@ async function updateCity(name,model){
     const modd=model
     //console.log(name)
     console.log(name)
+
     let array = await get_api(name)
     niuCity={cityName: name, cityTemp: array[0], minTemp:array[1], maxTemp:array[2]}
     for(var i = 0;i<modd.length;i++){
