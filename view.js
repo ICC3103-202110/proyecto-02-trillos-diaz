@@ -65,13 +65,17 @@ function inputFormUpRemove(model){
     const {cityUpRem} = model
     const mes2 = 'Location'
     const Options2 = model
+    const opts = []
+    for(var i = 0; i<Options2.length;i++){
+        opts.push(Options2[i].cityName)
+    }
     return inquirer.prompt([
         {
             name: 'cityUpRem',
             type: 'list',
             message: mes2,
             default: cityUpRem,
-            choices: Options2
+            choices: opts
         }
 
     ])

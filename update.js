@@ -1,55 +1,82 @@
 const { inverse } = require("chalk")
+const axios = require('axios').default
 
-function get_api(name,model){
-    //console.log(name)
-    console.log(name)
-    const axios = require('axios')
-    console.log(name)
-    let temperature
-    let min_temperature
-    let max_temperature
+/*
+async function get_api(name){
+    
+    //let temperature
+    //let min_temperature
+    //let max_temperature
     //let nombre = name
-    console.log(name)
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=ecfe3b501db6d812e96982c7951eff63`)
+    await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=ecfe3b501db6d812e96982c7951eff63`)
         .then((response)=>{
-            //console.log(name)
-            return{
-                ...model,
-                cityName:name, cityTemp:response.data.main.temp, maxTemp:response.data.main.temp_min, minTemp:response.data.main.temp_max
-        
-            }
-            // temperature = response.data.main.temp
-            // min_temperature = response.data.main.temp_min
-            // max_temperature = response.data.main.temp_max
+            
+             return response.data.main.temp
+             //min_temperature = response.data.main.temp_min
+             //max_temperature = response.data.main.temp_max
         })
         .catch(err=>{
             console.log(err.response.data.message)
         })
-    
+    return 0
 }
-function addCity(name,model){
+*/
+
+const get_api = async (name) =>{
+    try{
+        const resPost = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=ecfe3b501db6d812e96982c7951eff63`)
+        // clearTimeout(timeout);
+        
+        console.log(resPost.data.main.temp)
+        return [resPost.data.main.temp, resPost.data.main.temp_min, resPost.data.main.temp_max]
+    } catch (error){
+        console.log(error)
+    }
+}
+
+async function addCity(name,model){
     console.log(name)
-    niuCity={cityName: name, cityTemp: 50, minTemp:25, maxTemp:75,}
+    let array = await get_api(name)
+    niuCity={cityName: name, cityTemp: array[0], minTemp:array[1], maxTemp:array[2]}
     console.log(name)
     model.push(niuCity)
     return model
 }
-function updateCity(name,model){
+
+async function updateCity(name,model){
+    const modd=model
+    //console.log(name)
     console.log(name)
-    niuCity={cityName: name, cityTemp: 50, minTemp:25, maxTemp:75,}
-    console.log(name)
-    model.push(niuCity)
+    let array = await get_api(name)
+    niuCity={cityName: name, cityTemp: array[0], minTemp:array[1], maxTemp:array[2]}
+    for(var i = 0;i<modd.length;i++){
+        if(modd[i].cityName===name){
+            console.log(name)
+            model[i]=niuCity
+            break 
+        }
+    }
+    //model[pos]=niuCity
+    //console.log(name)
     return model
 }
-function removeCity(i,model){
-    console.log(i)
-    console.log(i)
-    model.push(niuCity)
+
+function removeCity(name,model){
+    const modd=model
+   // model.push(niuCity)
+    for(var i = 0;i<modd.length;i++){
+        if(modd[i].cityName===name){
+            console.log(name)
+            modd.splice(i,1)
+            break 
+        }
+    }
     return model
 }
+
 module.exports = {
     get_api,
     addCity,
     updateCity,
-    removeCity
+    removeCity,
 }
