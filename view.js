@@ -17,11 +17,21 @@ function getTitle(){
 
 function getTable(model){
     const tabList = []
-    for (var i = 0; i < model.length; i++){
-        var singleList = {'name': model[i].cityName,
-        'temp': model[i].cityTemp,
-        "min": model[i].minTemp,
-        "man": model[i].maxTemp}
+    if(model.length>=2){
+        for (var i = 1; i < model.length; i++){
+            var singleList = {'name': model[i].cityName,
+            'temp': model[i].cityTemp,
+            "min": model[i].minTemp,
+            "man": model[i].maxTemp}
+
+            tabList.push(singleList)
+        }
+    }
+    else{
+        var singleList = {'name': " ",
+        'temp': 0,
+        "min": 0,
+        "man": 0}
 
         tabList.push(singleList)
     }
@@ -65,7 +75,7 @@ function inputFormUpRemove(model){
     const mes2 = 'Location'
     const Options2 = model
     const opts = []
-    for(var i = 0; i<Options2.length;i++){
+    for(var i = 1; i<Options2.length;i++){
         opts.push(Options2[i].cityName)
     }
     return inquirer.prompt([

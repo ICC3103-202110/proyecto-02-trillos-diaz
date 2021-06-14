@@ -7,9 +7,6 @@ async function app(state, update, view){
     while (true){
         const {model, currentView} = state
         const {title, table} = currentView
-        if(model[0].cityName==" "){
-            model.splice(0,1)
-        }
         console.clear()
         console.log(title)
         printTable(table)
@@ -32,6 +29,7 @@ async function app(state, update, view){
                 currentView: view(updatedModel)
             }
         }else if(input["option"]=="Delete City"){
+            
             const input3 = await inputFormUpRemove(model)
             updatedModel = removeCity(input3["cityUpRem"],model)
             state = {
