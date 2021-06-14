@@ -4,6 +4,7 @@ const {printTable} = require('console-table-printer')
 var prompt = require('prompt-sync')();
 // Impure
 async function app(state, update, view){
+    let count = 0
     while (true){
         const {model, currentView} = state
         const {title, table} = currentView
@@ -15,27 +16,39 @@ async function app(state, update, view){
             const input2 = await inputFormAdd(model)
             updatedModel = await addCity(input2["newCity"],model)
             //updatedModel =  get_api(input2["newCity"],model)
+            count++
             state = {
                 ...state,
                 model: updatedModel,
                 currentView: view(updatedModel)
             }
         }else if(input["option"]=="Update City"){
-            const input3 = await inputFormUpRemove(model)
-            updatedModel = await updateCity(input3["cityUpRem"],model)
-            state = {
-                ...state,
-                model: updatedModel,
-                currentView: view(updatedModel)
+            if(count==0){
+                console.log("error")
+            }
+            else{
+                const input3 = await inputFormUpRemove(model)
+                updatedModel = await updateCity(input3["cityUpRem"],model)
+                //count++
+                state = {
+                    ...state,
+                    model: updatedModel,
+                    currentView: view(updatedModel)
+                }
             }
         }else if(input["option"]=="Delete City"){
-            
-            const input3 = await inputFormUpRemove(model)
-            updatedModel = removeCity(input3["cityUpRem"],model)
-            state = {
-                ...state,
-                model: updatedModel,
-                currentView: view(updatedModel)
+            if(count==0){
+                console.log("error")
+            }
+            else{
+                const input3 = await inputFormUpRemove(model)
+                updatedModel = removeCity(input3["cityUpRem"],model)
+                count--
+                state = {
+                    ...state,
+                    model: updatedModel,
+                    currentView: view(updatedModel)
+                }
             }
         }
         //const updatedModel = update(input["Price"],input["Tipp"], model)
