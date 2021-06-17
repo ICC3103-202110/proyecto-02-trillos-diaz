@@ -39,9 +39,7 @@ function getTable(model){
 }
 
 function inputForm(model){
-    //const option = 0
     const {choice} = model
-    //const mes1 = 'Select action'
     const mes2 = 'Location'
     const Options = ['Add City', 'Update City', 'Delete City']
     return inquirer.prompt([
@@ -55,11 +53,10 @@ function inputForm(model){
 
     ])
 }
+
 function inputFormAdd(model){
-    //const option = 0
     const {newCity} = model
     const mes2 = 'Location'
-    //const Options = ['Add City', 'Update City', 'Delete City']
     return inquirer.prompt([
         {
             name: 'newCity',
@@ -70,6 +67,7 @@ function inputFormAdd(model){
 
     ])
 }
+
 function inputFormUpRemove(model){
     const {cityUpRem} = model
     const mes2 = 'Location'
@@ -90,8 +88,6 @@ function inputFormUpRemove(model){
     ])
 }
 
-
-// Get actual console view
 function view(model){
     return {
         title: getTitle(),
